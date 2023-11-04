@@ -1,9 +1,12 @@
+import 'package:target_flutter/src/dtos/login_dto.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:validatorless/validatorless.dart';
 
 class LoginController {
-  String user = '';
-  String password = '';
+  final LoginDTO _loginDTO = LoginDTO();
+
+  void setLoginUser(String? value) => _loginDTO.user = value?.trim();
+  void setLoginPass(String? value) => _loginDTO.password = value?.trim();
 
   Future<void> openUrl() async {
     final Uri url = Uri.parse('https://www.google.com.br');

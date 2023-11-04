@@ -16,8 +16,6 @@ class _LoginPageState extends State<LoginPage> {
     var size = MediaQuery.sizeOf(context);
     return Material(
       child: Container(
-        height: size.height,
-        padding: const EdgeInsets.fromLTRB(64, 32, 64, 32),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -30,84 +28,94 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: Form(
           key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Expanded(child: SizedBox()),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 4, left: 8),
-                  child: Text(
-                    'Usuário',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(64, 32, 64, 32),
+              height: size.height,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Expanded(child: SizedBox()),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 4, left: 8),
+                      child: Text(
+                        'Usuário',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              TextFormField(
-                validator: controller.userValidator(),
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.person),
-                ),
-              ),
-              const SizedBox(height: 32),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 4, left: 8),
-                  child: Text(
-                    'Senha',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
+                  TextFormField(
+                    onChanged: controller.setLoginUser,
+                    validator: controller.userValidator(),
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.person),
                     ),
                   ),
-                ),
-              ),
-              TextFormField(
-                obscureText: true,
-                validator: controller.passwordValidator(),
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.lock),
-                ),
-              ),
-              const SizedBox(height: 32),
-              SizedBox(
-                width: 168,
-                height: 40,
-                child: ElevatedButton(
-                  style: const ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(Color(0xFF44bd6e))),
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      Navigator.pushReplacementNamed(context, '/notes');
-                    }
-                  },
-                  child: const Text(
-                    'Entrar',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.normal),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: controller.openUrl,
-                  child: const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      'Política de Privacidade',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.normal),
+                  const SizedBox(height: 32),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 4, left: 8),
+                      child: Text(
+                        'Senha',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  TextFormField(
+                    obscureText: true,
+                    onChanged: controller.setLoginPass,
+                    validator: controller.passwordValidator(),
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.lock),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    width: 168,
+                    height: 40,
+                    child: ElevatedButton(
+                      style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Color(0xFF44bd6e))),
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          Navigator.pushReplacementNamed(context, '/notes');
+                        }
+                      },
+                      child: const Text(
+                        'Entrar',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: InkWell(
+                        onTap: controller.openUrl,
+                        child: const Text(
+                          'Política de Privacidade',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
