@@ -13,6 +13,7 @@ class AppWidget extends StatelessWidget {
       themeMode: ThemeMode.dark,
       theme: ThemeData(
         inputDecorationTheme: InputDecorationTheme(
+          isDense: true,
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(
