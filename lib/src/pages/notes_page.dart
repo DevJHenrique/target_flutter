@@ -26,6 +26,12 @@ class _NotesPageState extends State<NotesPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _controller.loadSharedPrefs();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.sizeOf(context);

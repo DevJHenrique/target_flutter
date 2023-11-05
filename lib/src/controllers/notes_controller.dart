@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:mobx/mobx.dart';
 import 'package:target_flutter/src/models/note_model.dart';
+import 'package:target_flutter/src/services/shared_preferences_local_storage.dart';
 import 'package:validatorless/validatorless.dart';
 
 part 'notes_controller.g.dart';
@@ -8,6 +11,7 @@ part 'notes_controller.g.dart';
 class NotesController = _NotesController with _$NotesController;
 
 abstract class _NotesController with Store {
+  final service = const SharedPreferencesLocalStorage();
   @observable
   ObservableList<Note> notes = ObservableList<Note>();
 
@@ -23,20 +27,43 @@ abstract class _NotesController with Store {
   int get nextId => notes.isEmpty ? 1 : notes.last.id + 1;
 
   @action
-  void addNote({required String description, int? id}) {
+  Future<void> addNote({required String description, int? id}) async {
     final note = Note(id ?? nextId, description);
     notes.add(note);
+
+    await setSharedPrefs();
   }
 
   @action
-  void removeNote(Note note) {
+  Future<void> removeNote(Note note) async {
     notes.removeWhere((element) => element.id == note.id);
+    await setSharedPrefs();
   }
 
   @action
-  void setNote(Note note) {
+  Future<void> setNote(Note note) async {
     removeNote(note);
     addNote(id: note.id, description: note.description);
     notes.sort(((a, b) => a.id.compareTo(b.id)));
+    await setSharedPrefs();
+  }
+
+  @action
+  Future<void> loadSharedPrefs() async {
+    const key = 'notes';
+    var result = await service.getString(key);
+    if (result != null) {
+      List jsonList = jsonDecode(result) as List;
+
+      notes =
+          jsonList.map((item) => Note.fromMap(item)).toList().asObservable();
+    }
+  }
+
+  @action
+  Future<void> setSharedPrefs() async {
+    const key = 'notes';
+    await service.clean(key);
+    await service.setString(key, value: notes.toString());
   }
 }

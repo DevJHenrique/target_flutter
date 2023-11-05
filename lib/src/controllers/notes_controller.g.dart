@@ -39,40 +39,45 @@ mixin _$NotesController on _NotesController, Store {
     });
   }
 
-  late final _$_NotesControllerActionController =
-      ActionController(name: '_NotesController', context: context);
+  late final _$addNoteAsyncAction =
+      AsyncAction('_NotesController.addNote', context: context);
 
   @override
-  void addNote({required String description, int? id}) {
-    final _$actionInfo = _$_NotesControllerActionController.startAction(
-        name: '_NotesController.addNote');
-    try {
-      return super.addNote(description: description, id: id);
-    } finally {
-      _$_NotesControllerActionController.endAction(_$actionInfo);
-    }
+  Future<void> addNote({required String description, int? id}) {
+    return _$addNoteAsyncAction
+        .run(() => super.addNote(description: description, id: id));
   }
 
-  @override
-  void removeNote(Note note) {
-    final _$actionInfo = _$_NotesControllerActionController.startAction(
-        name: '_NotesController.removeNote');
-    try {
-      return super.removeNote(note);
-    } finally {
-      _$_NotesControllerActionController.endAction(_$actionInfo);
-    }
-  }
+  late final _$removeNoteAsyncAction =
+      AsyncAction('_NotesController.removeNote', context: context);
 
   @override
-  void setNote(Note note) {
-    final _$actionInfo = _$_NotesControllerActionController.startAction(
-        name: '_NotesController.setNote');
-    try {
-      return super.setNote(note);
-    } finally {
-      _$_NotesControllerActionController.endAction(_$actionInfo);
-    }
+  Future<void> removeNote(Note note) {
+    return _$removeNoteAsyncAction.run(() => super.removeNote(note));
+  }
+
+  late final _$setNoteAsyncAction =
+      AsyncAction('_NotesController.setNote', context: context);
+
+  @override
+  Future<void> setNote(Note note) {
+    return _$setNoteAsyncAction.run(() => super.setNote(note));
+  }
+
+  late final _$loadSharedPrefsAsyncAction =
+      AsyncAction('_NotesController.loadSharedPrefs', context: context);
+
+  @override
+  Future<void> loadSharedPrefs() {
+    return _$loadSharedPrefsAsyncAction.run(() => super.loadSharedPrefs());
+  }
+
+  late final _$setSharedPrefsAsyncAction =
+      AsyncAction('_NotesController.setSharedPrefs', context: context);
+
+  @override
+  Future<void> setSharedPrefs() {
+    return _$setSharedPrefsAsyncAction.run(() => super.setSharedPrefs());
   }
 
   @override

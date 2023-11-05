@@ -39,6 +39,7 @@ dependencies:
   validatorless: ^1.2.3
   mobx: ^2.2.1
   flutter_mobx: ^2.1.1
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
