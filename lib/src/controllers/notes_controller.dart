@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:mobx/mobx.dart';
 import 'package:target_flutter/src/models/note_model.dart';
 import 'package:target_flutter/src/services/shared_preferences_local_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:validatorless/validatorless.dart';
 
 part 'notes_controller.g.dart';
@@ -65,5 +66,10 @@ abstract class _NotesController with Store {
     const key = 'notes';
     await service.clean(key);
     await service.setString(key, value: notes.toString());
+  }
+
+  Future<void> openUrl() async {
+    final Uri url = Uri.parse('https://www.google.com.br');
+    await launchUrl(url, mode: LaunchMode.externalApplication);
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:target_flutter/src/controllers/notes_controller.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:target_flutter/src/pages/components/delete_note_dialog.dart';
-import 'package:target_flutter/src/pages/components/edit_note_dialog.dart';
 
+import '../controllers/notes_controller.dart';
+import 'components/delete_note_dialog.dart';
+import 'components/edit_note_dialog.dart';
 import 'components/list_card.dart';
 
 class NotesPage extends StatefulWidget {
@@ -56,8 +56,13 @@ class _NotesPageState extends State<NotesPage> {
               Expanded(
                 flex: 4,
                 child: Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.elliptical(6, 80),
+                    ),
+                    color: Colors.white,
+                  ),
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  color: Colors.white,
                   child: Observer(builder: (_) {
                     return ListView.builder(
                       itemCount: _controller.notes.length,
@@ -126,7 +131,7 @@ class _NotesPageState extends State<NotesPage> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: _controller.openUrl,
                     child: const Text(
                       'Política de Privacidade',
                       style: TextStyle(

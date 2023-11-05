@@ -36,6 +36,7 @@ class ListCard extends StatelessWidget {
               onTap: onPressDelete,
               child: const Icon(
                 Icons.close,
+                color: Colors.red,
                 size: 32,
               ),
             )

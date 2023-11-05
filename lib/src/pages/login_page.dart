@@ -9,7 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final controller = LoginController();
+  final _controller = LoginController();
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -50,8 +50,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   TextFormField(
-                    onChanged: controller.setLoginUser,
-                    validator: controller.userValidator(),
+                    onChanged: _controller.setLoginUser,
+                    validator: _controller.userValidator(),
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.person),
                     ),
@@ -72,8 +72,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextFormField(
                     obscureText: true,
-                    onChanged: controller.setLoginPass,
-                    validator: controller.passwordValidator(),
+                    onChanged: _controller.setLoginPass,
+                    validator: _controller.passwordValidator(),
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.lock),
                     ),
@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Align(
                       alignment: Alignment.bottomCenter,
                       child: InkWell(
-                        onTap: controller.openUrl,
+                        onTap: _controller.openUrl,
                         child: const Text(
                           'Política de Privacidade',
                           style: TextStyle(
